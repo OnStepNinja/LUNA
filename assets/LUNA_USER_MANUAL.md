@@ -839,4 +839,4 @@ This product is an independently developed hardware by OnStepNinja and is not af
 "Temma", "MCP" and other product names are trademarks of their respective owners.
 Use of these names is solely for the purpose of describing compatibility (Nominative Fair Use).
 
-本プロジェクトは各社とは無関係の個人によるオープンソースプロジェクトです。
+本プロジェクトは各社とは無関係の個人によるプロジェクトです。
