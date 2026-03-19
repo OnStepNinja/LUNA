@@ -1,4 +1,4 @@
-# LUNA AiBridgeMCP ガイド
+# LUNA Lua ガイド
 
 **対象ファームウェア**: AiBridgeMCP v3.9.1 LUNA
 **ドキュメントリビジョン**: r1.5
