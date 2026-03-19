@@ -1,4 +1,4 @@
-# LUNA AiBridgeMCP Guide
+# LUNA Lua Guide
 
 **Target Firmware**: AiBridgeMCP v3.9.1 LUNA
 **Document Revision**: r1.5
