@@ -14,9 +14,6 @@ LUNA runs the observation sequence autonomously — slewing, measuring, logging,
 
 Lua scripts can also control **any ASCOM/Alpaca-compatible device** — focusers, filter wheels, rotators, weather stations — directly over HTTP, without a Windows PC or ASCOM Platform.
 
-Write a Lua script, deploy it to the ESP32, and walk away.
-LUNA runs the observation sequence autonomously — slewing, measuring, logging, and notifying Claude only when the job is done.
-
 | Feature | AiBridgeMCP | LUNA |
 |---------|:-----------:|:----:|
 | Claude controls device directly | ✅ | ✅ |
