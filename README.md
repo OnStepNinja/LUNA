@@ -9,10 +9,10 @@
 **[AiBridgeMCP](https://github.com/OnStepNinja/AiBridgeMCP)** proved that a $5 ESP32 chip could bridge Claude AI and any legacy serial device.
 **LUNA** takes it further: Claude no longer has to stay connected.
 
+Write a Lua script, deploy it to the ESP32, and walk away.
 LUNA runs the observation sequence autonomously — slewing, measuring, logging, and notifying Claude only when the job is done.
 
-Lua scripts can also control **any ASCOM/Alpaca-compatible device** — focusers, filter wheels,
-rotators, weather stations — directly over HTTP, without a Windows PC or ASCOM Platform.
+Lua scripts can also control **any ASCOM/Alpaca-compatible device** — focusers, filter wheels, rotators, weather stations — directly over HTTP, without a Windows PC or ASCOM Platform.
 
 Write a Lua script, deploy it to the ESP32, and walk away.
 LUNA runs the observation sequence autonomously — slewing, measuring, logging, and notifying Claude only when the job is done.
