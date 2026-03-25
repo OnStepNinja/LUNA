@@ -45,7 +45,7 @@ LUNA is designed for astronomical instrument control:
 | OnStep NS-3000 | LX200 | 9600 bps |
 | Any RS-232C serial device | Custom Lua | Configurable |
 
-> **Note:** For OnStep, only the NS-3000 is supported. Generic OnStep clones and other unlisted hardware are not supported.
+> **Note:** For OnStep, only the NS-3000 is supported. 
 
 ---
 
