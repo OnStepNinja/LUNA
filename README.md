@@ -1,4 +1,3 @@
-```markdown
 > 🚀 **v5.9.1b Released** — Each board gets a unique Wi-Fi name automatically. Recommended over all previous versions.
 
 ---
@@ -13,8 +12,8 @@
 Write a Lua script, deploy it to the ESP32, and walk away.
 LUNA runs the observation sequence autonomously — slewing, measuring, logging, and notifying Claude only when the job is done.
 
-| | AiBridgeMCP | LUNA |
-|--|-------------|------|
+| Feature | AiBridgeMCP | LUNA |
+|---------|:-----------:|:----:|
 | Claude controls device directly | ✅ | ✅ |
 | Lua scripts run on ESP32 | — | ✅ |
 | Autonomous operation (no Claude needed) | — | ✅ |
@@ -69,21 +68,20 @@ Open **http://192.168.4.1** in your browser to configure your home Wi-Fi.
 ### 3. Connect Claude Desktop
 
 Add LUNA to your `claude_desktop_config.json` and restart Claude Desktop.
+
 📄 Full instructions: [Quick Setup Guide](https://notebooklm.google.com/notebook/f2ce997f-18c2-44c4-8738-973b204c190c)
 
 ---
 
 ## Usage Example
 
-```
+```text
 You:    "Slew to M42"
 Claude: [sends goto command, confirms slew started]
 
 You:    "Run the observation sequence"
 Claude: [calls lua_run("observe") — scripts chain autonomously from here]
-```
 
----
 
 ## MCP Tools
 
