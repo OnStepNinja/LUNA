@@ -14,6 +14,8 @@ LUNA runs the observation sequence autonomously — slewing, measuring, logging,
 
 Lua scripts can also control **any ASCOM/Alpaca-compatible device** — focusers, filter wheels, rotators, weather stations — directly over HTTP, without a Windows PC or ASCOM Platform.
 
+![LUNAシステムの実行画面](assets/LUNA_System%202026-03-27%20074935.png)
+
 | Feature | AiBridgeMCP | LUNA |
 |---------|:-----------:|:----:|
 | Claude controls device directly | ✅ | ✅ |
