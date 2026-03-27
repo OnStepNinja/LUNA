@@ -1,167 +1,289 @@
-> 🚀 **v5.9.1b Released** — Each board gets a unique Wi-Fi name automatically. Recommended over all previous versions.
+# LUNA — AI-Driven Telescope & Observatory Controller
+
+**MCP Server + Lua Scripting Engine on ESP32**
+
+> Let Claude AI control your telescope, camera, and entire observatory — in plain language.
+
+![Version](https://img.shields.io/badge/version-v5.9.2-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Platform](https://img.shields.io/badge/platform-ESP32-orange)
 
 ---
 
-# LUNA — AiBridgeMCP + Lua Scripting Engine
+## What is LUNA?
 
-> *The next evolution of AiBridgeMCP — now with autonomous scripting on the ESP32.*
+LUNA is a firmware for ESP32 that turns it into an **MCP (Model Context Protocol) server with a built-in Lua scripting engine**.
 
-**[AiBridgeMCP](https://github.com/OnStepNinja/AiBridgeMCP)** proved that a $5 ESP32 chip could bridge Claude AI and any legacy serial device.
-**LUNA** takes it further: Claude no longer has to stay connected.
+Connect LUNA to your telescope or observatory equipment, then control everything through Claude AI — in plain language.
 
-Write a Lua script, deploy it to the ESP32, and walk away.
-LUNA runs the observation sequence autonomously — slewing, measuring, logging, and notifying Claude only when the job is done.
+```
+You ──→ Claude AI ──→ LUNA (ESP32) ──→ Telescope / Serial Device
+              "Go to M42"    serial command    🔭 slews
 
-Lua scripts can also control **any ASCOM/Alpaca-compatible device** — focusers, filter wheels, rotators, weather stations — directly over HTTP, without a Windows PC or ASCOM Platform.
+You ──→ Claude AI ──→ LUNA (ESP32) ──→ NINA (PC) ──→ Camera / Focuser / Guider
+         "Image M42 tonight"   HTTP API       🌟 full automation
+```
 
-![LUNAシステムの実行画面](assets/LUNA_System%202026-03-27%20074935.png)
+LUNA runs **Lua scripts autonomously** on the ESP32. Claude writes the scripts, deploys them, and monitors results — all through the MCP protocol.
 
-| Feature | AiBridgeMCP | LUNA |
-|---------|:-----------:|:----:|
-| Claude controls device directly | ✅ | ✅ |
-| Lua scripts run on ESP32 | — | ✅ |
-| Autonomous operation (no Claude needed) | — | ✅ |
-| Script chaining (`luna.run()`) | — | ✅ |
-| HTTP access to Alpaca REST / local devices | — | ✅ |
-| Async notification to Claude (`notify.set()`) | — | ✅ |
-| MCP Resources (live sensor data) | — | ✅ |
-| Unique Wi-Fi name per board (MAC-based) | — | ✅ |
+---
 
-LUNA is designed for astronomical instrument control:
-**Takahashi Temma2**, **NS-5000**, and **OnStep NS-3000**.
+## ★ New in v5.9.2 — NINA Astrophotography Integration
 
-> Lua 5.1 is the scripting language running on the ESP32.
-> For the full API reference, see the [LUNA Guide](AiBridgeMCP_LUNA_Guide.md).
+LUNA now controls **NINA (Nighttime Imaging 'N' Astronomy)** — the world's most popular free astrophotography software — directly via its HTTP API.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Firmware](https://img.shields.io/badge/Firmware-v5.9.1b-blue.svg)]()
-[![Platform](https://img.shields.io/badge/Platform-ESP32-red.svg)]()
-[![MCP](https://img.shields.io/badge/MCP-Streamable%20HTTP-purple.svg)]()
+### What this means
+
+| Without LUNA | With LUNA + NINA |
+|-------------|-----------------|
+| Build sequences manually (30–50 settings) | Just tell Claude what you want to image |
+| Start imaging manually | "Image M42 at 3 min, 20 frames" — done |
+| Configure each device separately | Claude coordinates telescope, camera, focuser, guider, dome, and weather sensor together |
+| Troubleshoot errors yourself | Claude explains what went wrong and suggests fixes |
+
+### Verified working (2026-03-27)
+
+```
+✅ Camera connection and status
+✅ Capture start / stop
+✅ Autofocus
+✅ Filter wheel control
+✅ Sequence start / stop
+✅ Guider start / stop
+✅ ASCOM / Alpaca device control (switch, weather sensor)
+✅ Stellarium integration
+```
+
+### How it works
+
+```
+"Image M42 tonight"
+
+  ① Check weather sensors → safe to observe?     (LUNA + Alpaca)
+  ② Slew telescope to M42                         (Alpaca)
+  ③ Run autofocus                                 (NINA HTTP API)
+  ④ Test exposure → plate solve → correct pointing (NINA HTTP API)
+  ⑤ Start main imaging sequence                   (NINA HTTP API)
+  ⑥ Re-focus periodically as temperature drops    (NINA HTTP API)
+  ⑦ Auto-abort if weather deteriorates            (LUNA monitoring)
+```
+
+> **NINA is the "hands", Claude is the "brain", LUNA is the "nervous system."**
+
+### Requirements for NINA integration
+
+- NINA v3.x — [nighttime-imaging.eu](https://nighttime-imaging.eu/) (free)
+- NINA Advanced API plugin (free, installed from within NINA)
+- Port: **1888** (default), API Enabled: **ON**
+- LUNA and the NINA PC on the same WiFi network
+
+---
+
+## Key Features
+
+- **MCP Server** — connects directly to Claude via the Model Context Protocol
+- **Lua 5.1 scripting engine** — write, save, and run scripts on the ESP32
+- **Autonomous operation** — scripts run independently; Claude monitors and intervenes as needed
+- **NINA integration** — control astrophotography software via HTTP POST (v5.9.2)
+- **http module** — `http.get` / `http.put` / `http.post` for ASCOM/Alpaca and NINA Advanced API
+- **MCP Resources** — Claude reads device state naturally, like reading a gauge
+- **Script-to-script data passing** — `log.save()` / `log.load()` enable stateful workflows without Claude
+- **Serial device control** — full RS-232C control via `serial.query()`, `serial.write()`, `serial.read()`
+- **FreeRTOS dual-core** — MCP server and Lua engine run on separate cores; no blocking
 
 ---
 
 ## Supported Devices
 
-| Device | Protocol | Baud Rate |
-|--------|----------|-----------|
-| Takahashi Temma2 | Temma | 19200 bps |
-| NS-5000 | LX200 | 9600 bps |
-| OnStep NS-3000 | LX200 | 9600 bps |
-| Any RS-232C serial device | Custom Lua | Configurable |
+| Variant | Baud Rate | Target Devices |
+|---------|-----------|----------------|
+| **LUNA Standard** | 9,600 bps | Meade LX200, OnStep, LX200-compatible mounts |
+| **LUNA Temma2** | 19,200 bps | Takahashi Temma2 |
 
-> **Note:** For OnStep, only the NS-3000 is supported. Generic OnStep clones and other unlisted hardware are not supported.
+**PC Software Integration (v5.9.2)**
+
+| Software | Protocol | Port |
+|----------|----------|------|
+| NINA Advanced API | HTTP POST/GET | 1888 |
+| Stellarium Remote Control | HTTP POST/GET | 8090 |
+| ASCOM / Alpaca devices | HTTP GET/PUT | varies |
+
+> LUNA works with **any RS-232C serial device** and any **ASCOM/Alpaca-compatible device** on your LAN.
+
+---
+
+## Requirements
+
+### Hardware
+- **ESP32 development board** (ESP32-DevKitC or compatible)
+- RS-232C interface circuit (MAX3232 or equivalent)
+- Power: **5V via micro USB** (power bank or USB charger)
+
+> **Ready-to-use LUNA boards** (LUNA OnStepNinja V2 — pre-wired, pre-flashed) are available from the author.
+
+### Software / Service
+- [Claude Desktop](https://claude.ai/download) (free)
+- MCP connector (included in the GitHub Releases download package)
 
 ---
 
 ## Getting Started
 
-### 1. Flash the Firmware
+### Step 1 — Flash the Firmware
+
+Download the firmware binary from [GitHub Releases](https://github.com/OnStepNinja/LUNA/releases):
 
 | File | Target |
 |------|--------|
-| `LUNA OnStepNinjaV2 9600 v5.9.1b.zip` | NS-5000 / OnStep NS-3000 (9600 bps) |
-| `LUNA OnStepNinjaV2 19200 v5.9.1b.zip` | Takahashi Temma2 (19200 bps) |
+| `LUNA_v5.9.2_Standard.bin` | LX200 / OnStep (9600 bps) |
+| `LUNA_v5.9.2_Temma2.bin` | Takahashi Temma2 (19200 bps) |
 
-Flash the binary to your ESP32 using the included flasher tool.
+Flash to your ESP32 using esptool or ESP32 Flash Download Tool.
 
-### 2. Connect to LUNA
+📄 **See [LUNA_Quick_Setup_Guide.md](docs/LUNA_Quick_Setup_Guide.md) for full instructions.**
 
-On first boot, LUNA starts a Wi-Fi access point (`LUNA_xxxxxx`, no password).
-Open **http://192.168.4.1** in your browser to configure your home Wi-Fi.
+### Step 2 — Connect Claude Desktop to LUNA
 
-### 3. Connect Claude Desktop
+Configure Claude Desktop using the MCP connector included in the download package.
 
-Add LUNA to your `claude_desktop_config.json` and restart Claude Desktop.
+📄 **See [LUNA_Quick_Setup_Guide.md](docs/LUNA_Quick_Setup_Guide.md) for the 3-step setup.**
 
-📄 Full instructions: [Quick Setup Guide](https://notebooklm.google.com/notebook/f2ce997f-18c2-44c4-8738-973b204c190c)
+### Step 3 — Start talking to your telescope
+
+```
+You:    "Go to M42"
+Claude: → slews telescope to M42
+
+You:    "Image M42 tonight, 3 minutes per frame, 20 frames"
+Claude: → autofocuses, plate solves, starts NINA sequence
+```
 
 ---
 
-## Usage Example
+## Example: Full Observatory Automation
 
-```text
-You:    "Slew to M42"
-Claude: [sends goto command, confirms slew started]
+```lua
+-- LUNA Lua script: check weather, then start NINA sequence
+local resp, code = http.get(
+  "http://192.168.x.x/api/v1/observingconditions/0/humidity", 2000)
 
-You:    "Run the observation sequence"
-Claude: [calls lua_run("observe") — scripts chain autonomously from here]
+if code == 200 then
+  local humidity = -- parse resp
+  if humidity < 80 then
+    http.post("http://192.168.x.x:1888/v2/api/sequence/start", "{}",
+              "application/json", 3000)
+    log.write("Sequence started. Humidity: " .. humidity .. "%")
+  else
+    notify.set("Humidity too high (" .. humidity .. "%). Imaging skipped.")
+  end
+end
+```
 
+---
 
-## MCP Tools
+## MCP Tools Available to Claude
 
 | Tool | Description |
 |------|-------------|
-| `lua_exec(code)` | Execute Lua code immediately |
-| `lua_run(name)` | Run a saved script asynchronously |
-| `lua_save(name, code)` | Save a script to SPIFFS |
-| `lua_list()` | List saved scripts |
-| `lua_status()` | Poll running script state |
-| `lua_stop()` | Abort a running script |
-| `lua_log()` | Read the script log (last 20 lines) |
-| `serial_query(cmd, ms)` | Send command, receive response |
-| `serial_write(data)` | Send data to serial port |
-| `serial_read()` | Read available serial data |
-| `fs_read(path)` | Read a file from SPIFFS |
-| `fs_write(path, data)` | Write a file to SPIFFS |
-| `get_system_info()` | ESP32 system status |
-| `get_network_status()` | Wi-Fi / network information |
+| `lua_exec` | Execute a Lua script immediately |
+| `lua_save` | Save a script to the ESP32 (SPIFFS) |
+| `lua_run` | Run a saved script asynchronously |
+| `lua_status` | Check execution state and results |
+| `lua_log` | Read the script log buffer |
+| `lua_stop` | Stop a running script |
+| `lua_list` | List saved scripts |
+| `serial_query` | Send a command and read response |
+| `serial_write` | Send a raw serial command |
+| `serial_read` | Read serial data |
+| `fs_read` | Read a file from ESP32 storage |
+| `fs_write` | Write a file to ESP32 storage |
+| `check_notify` | Receive async notifications from Lua scripts |
 
 ---
 
-## Support
+## Lua API (inside scripts)
 
-📚 **Documentation** — Setup guides, technical references, and FAQ.
-Ask questions directly inside NotebookLM and get answers from the official documentation.
-👉 https://notebooklm.google.com/notebook/f2ce997f-18c2-44c4-8738-973b204c190c
+```lua
+-- Serial control
+serial.write(cmd)
+serial.read(timeout_ms)
+serial.query(cmd, timeout_ms)
 
-💬 **Community** — Join our Facebook group to ask questions, share your results, and connect with other users. The developer is also a member.
-👉 https://www.facebook.com/groups/1230935959149731
+-- HTTP (LAN only — ASCOM/Alpaca/NINA/Stellarium)
+http.get(url, timeout_ms)
+http.put(url, body, content_type, timeout_ms)
+http.post(url, body, content_type, timeout_ms)  -- v5.9.2
+
+-- Logging & data passing
+log.write(message)
+log.read([n])       -- n omitted = latest line
+log.save()          -- persist to flash
+log.load()          -- restore from flash
+
+-- Hardware
+hw.delay(ms)
+hw.millis()
+hw.free_heap()
+hw.led(0 or 1)
+
+-- Notify Claude
+notify.set("message")
+
+-- Script chaining
+luna.run("next_script_name")
+```
 
 ---
 
-## About
+## Hardware
 
-LUNA is part of the **AiBridgeMCP** project — connecting Claude AI to legacy devices via ESP32.
+**LUNA OnStepNinja V2** — pre-built board available from the author:
 
-- **Author**: Nishioka Sadahiko ([@OnStepNinja](https://github.com/OnStepNinja))
-- **Firmware**: AiBridgeMCP v5.9.1b LUNA Edition
-- **License**: MIT
+- Pre-flashed with LUNA v5.9.2
+- RS-232C connector (D-sub 9-pin) included
+- Power: 5V micro USB
+- Compatible with NS-5000, OnStep, and LX200-compatible mounts
 
-> LUNA works with any RS-232C serial device — not just telescopes.
+> ⚠️ **Cable note:** Use a **straight RS-232C cable** between LUNA and a PC.
+> Use a **cross cable** between LUNA and NS-5000 / OnStep.
+
+Contact: [GitHub Issues](https://github.com/OnStepNinja/LUNA/issues)
+
+---
+
+## Documentation
+
+| Document | Description |
+|----------|-------------|
+| [LUNA_Quick_Setup_Guide.md](docs/LUNA_Quick_Setup_Guide.md) | First-time setup (3 steps) |
+| [LUNA_USER_MANUAL.md](docs/LUNA_USER_MANUAL.md) | Full reference manual |
+| [LUNA_Lua_Guide.md](docs/LUNA_Lua_Guide.md) | Lua scripting guide |
+
+📚 **[LUNA Docs on NotebookLM](https://notebooklm.google.com/notebook/f2ce997f-18c2-44c4-8738-973b204c190c)** — Ask questions about LUNA directly.
 
 ---
 
 ## License
 
-**Freeware — Free to use for personal and commercial purposes.**
-
-The LUNA firmware binary is released under the [MIT License](LICENSE).
+The LUNA firmware binary is distributed under the [MIT License](LICENSE).
 Source code is proprietary and not published.
 
-### Third-party Licenses
+Copyright © 2026 Nishioka Sadahiko
 
-LUNA firmware incorporates **Lua 5.1**, distributed under the MIT License:
+---
 
-```
-Copyright © 1994–2012 Lua.org, PUC-Rio.
+### Third-Party Licenses
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+LUNA incorporates **Lua 5.1**, distributed under the MIT License:
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+> Copyright © 1994–2012 Lua.org, PUC-Rio.
+> Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+See also: https://www.lua.org/license.html
 
-```
-*AiBridgeMCP — Bridge Across Decades © 2026 Nishioka Sadahiko*
+---
+
+## Author
+
+**Nishioka Sadahiko**
+GitHub: [@OnStepNinja](https://github.com/OnStepNinja)
