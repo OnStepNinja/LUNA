@@ -4,7 +4,7 @@
 
 > Let Claude AI control your telescope, camera, and entire observatory — in plain language.
 
-![Version](https://img.shields.io/badge/version-v5.9.2-blue)
+![Version](https://img.shields.io/badge/version-v5.9.3-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Platform](https://img.shields.io/badge/platform-ESP32-orange)
 
@@ -27,6 +27,30 @@ You ──→ Claude AI ──→ LUNA (ESP32) ──→ NINA (PC) ──→ Cam
 LUNA runs **Lua scripts autonomously** on the ESP32. Claude writes the scripts, deploys them, and monitors results — all through the MCP protocol.
 
 ![LUNA Observatory System v5.9.3](assets/LUNA%20Observatory%20System%20v5.9.3.png)
+
+---
+
+## ★ New in v5.9.3 — Vixen Mount Support (UDP)
+
+LUNA now supports **Vixen Wireless Unit** mounts (AXD, SXP, SXD2, AP, SX2, AXJ, SXP2) via UDP, and **Vixen STAR BOOK TEN** via HTTP — all through the new `udp.*` Lua module.
+
+| Mount | Protocol | Connection |
+|-------|----------|------------|
+| Vixen Wireless Unit (AXD/SXP/SXD2/AP/SX2/AXJ/SXP2) | UDP | 192.168.6.1 : 60023 |
+| Vixen STAR BOOK TEN | HTTP GET | 169.254.1.1 : 80 |
+
+```lua
+-- Example: slew Vixen Wireless Unit to a target
+udp.begin(50000)
+udp.connect("192.168.6.1", 60023)
+udp.write("$MTTGT=1,83.82,−5.39,Orion Nebula\r\n")
+udp.write("$MTMV2\r\n")
+local resp = udp.read(2000)
+udp.close()
+log.write("GoTo response: " .. (resp or "timeout"))
+```
+
+> Claude knows the full Vixen command set internally via `vixen_guide` — just tell it where to point.
 
 ---
 
@@ -86,8 +110,10 @@ LUNA now controls **NINA (Nighttime Imaging 'N' Astronomy)** — the world's mos
 - **MCP Server** — connects directly to Claude via the Model Context Protocol
 - **Lua 5.1 scripting engine** — write, save, and run scripts on the ESP32
 - **Autonomous operation** — scripts run independently; Claude monitors and intervenes as needed
+- **Vixen mount support** — Wireless Unit (UDP) and STAR BOOK TEN (HTTP) via new `udp.*` module (v5.9.3)
 - **NINA integration** — control astrophotography software via HTTP POST (v5.9.2)
-- **http module** — `http.get` / `http.put` / `http.post` for ASCOM/Alpaca and NINA Advanced API
+- **http module** — `http.get` / `http.put` / `http.post` for ASCOM/Alpaca, NINA Advanced API, and Vixen STAR BOOK TEN
+- **udp module** — `udp.begin` / `udp.connect` / `udp.write` / `udp.read` / `udp.close` for Vixen Wireless Unit (v5.9.3)
 - **MCP Resources** — Claude reads device state naturally, like reading a gauge
 - **Script-to-script data passing** — `log.save()` / `log.load()` enable stateful workflows without Claude
 - **Serial device control** — full RS-232C control via `serial.query()`, `serial.write()`, `serial.read()`
@@ -102,13 +128,20 @@ LUNA now controls **NINA (Nighttime Imaging 'N' Astronomy)** — the world's mos
 | **LUNA Standard** | 9,600 bps | Meade LX200, OnStep, LX200-compatible mounts |
 | **LUNA Temma2** | 19,200 bps | Takahashi Temma2 |
 
-**PC Software Integration (v5.9.2)**
+**PC Software Integration (v5.9.2+)**
 
 | Software | Protocol | Port |
 |----------|----------|------|
 | NINA Advanced API | HTTP POST/GET | 1888 |
 | Stellarium Remote Control | HTTP POST/GET | 8090 |
 | ASCOM / Alpaca devices | HTTP GET/PUT | varies |
+
+**Vixen Mount Integration (v5.9.3)**
+
+| Mount | Protocol | Address |
+|-------|----------|---------|
+| Vixen Wireless Unit (AXD/SXP/SXD2/AP/SX2/AXJ/SXP2) | UDP | 192.168.6.1 : 60023 |
+| Vixen STAR BOOK TEN | HTTP GET | 169.254.1.1 : 80 |
 
 > LUNA works with **any RS-232C serial device** and any **ASCOM/Alpaca-compatible device** on your LAN.
 
@@ -137,8 +170,8 @@ Download the firmware binary from [GitHub Releases](https://github.com/OnStepNin
 
 | File | Target |
 |------|--------|
-| `LUNA_v5.9.2_Standard.bin` | LX200 / OnStep (9600 bps) |
-| `LUNA_v5.9.2_Temma2.bin` | Takahashi Temma2 (19200 bps) |
+| `LUNA_v5.9.3_Standard.bin` | LX200 / OnStep (9600 bps) |
+| `LUNA_v5.9.3_Temma2.bin` | Takahashi Temma2 (19200 bps) |
 
 Flash to your ESP32 using esptool or ESP32 Flash Download Tool.
 
@@ -211,10 +244,17 @@ serial.write(cmd)
 serial.read(timeout_ms)
 serial.query(cmd, timeout_ms)
 
--- HTTP (LAN only — ASCOM/Alpaca/NINA/Stellarium)
+-- HTTP (LAN only — ASCOM/Alpaca/NINA/Stellarium/Vixen STAR BOOK TEN)
 http.get(url, timeout_ms)
 http.put(url, body, content_type, timeout_ms)
 http.post(url, body, content_type, timeout_ms)  -- v5.9.2
+
+-- UDP (Vixen Wireless Unit)              -- v5.9.3
+udp.begin(local_port)
+udp.connect(host, port)
+udp.write(data)
+udp.read([timeout_ms])
+udp.close()
 
 -- Logging & data passing
 log.write(message)
@@ -241,7 +281,7 @@ luna.run("next_script_name")
 
 **LUNA OnStepNinja V2** — pre-built board available from the author:
 
-- Pre-flashed with LUNA v5.9.2
+- Pre-flashed with LUNA v5.9.3
 - RS-232C connector (D-sub 9-pin) included
 - Power: 5V micro USB
 - Compatible with NS-5000, OnStep, and LX200-compatible mounts
