@@ -26,6 +26,8 @@ You ──→ Claude AI ──→ LUNA (ESP32) ──→ NINA (PC) ──→ Cam
 
 LUNA runs **Lua scripts autonomously** on the ESP32. Claude writes the scripts, deploys them, and monitors results — all through the MCP protocol.
 
+![LUNA Observatory System v5.9.3](assets/LUNA%20Observatory%20System%20v5.9.3.png)
+
 ---
 
 ## ★ New in v5.9.2 — NINA Astrophotography Integration
