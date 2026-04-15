@@ -10,6 +10,17 @@
 
 ---
 
+## ⚠️ Version Notice
+
+| Version | Lua API Guide | Vixen Protocol | Status |
+|---------|---------------|---|--------|
+| v5.9.6+ | ✅ Automatic | ✅ Automatic | Recommended |
+| v5.9.5  | ⚠️ Manual load required | ❌ Not available | Legacy |
+
+For v5.9.5 users: Please load [LUNA_Lua_Guide](docs/LUNA_Lua_Guide.md) into Claude or upgrade to v5.9.6+.
+
+---
+
 ## What is LUNA?
 
 LUNA is a firmware for ESP32 that turns it into an **MCP (Model Context Protocol) server with a built-in Lua scripting engine**.
