@@ -10,14 +10,14 @@
 
 ---
 
-## ⚠️ Version Notice
+## LUNA Docs (NotebookLM)
 
-| Version | Lua API Guide | Vixen Protocol | Status |
-|---------|---------------|---|--------|
-| v5.9.6+ | ✅ Automatic | ✅ Automatic | Recommended |
-| v5.9.5  | ⚠️ Manual load required | ❌ Not available | Legacy |
+📚 LUNA Docs — Start here for setup guides, technical references, and FAQ.
+Ask questions directly inside NotebookLM and get answers from the official documentation.
+👉 https://notebooklm.google.com/notebook/f2ce997f-18c2-44c4-8738-973b204c190c
 
-For v5.9.5 users: Please load [LUNA_Lua_Guide](docs/LUNA_Lua_Guide.md) into Claude or upgrade to v5.9.6+.
+💬 AiBridgeMCP Community — Join our Facebook group to ask questions, share your results, and connect with other users. The developer is also a member. Everyone is welcome.
+👉 https://www.facebook.com/groups/1230935959149731
 
 ---
 
