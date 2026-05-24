@@ -39,7 +39,7 @@ LUNA runs **Lua scripts autonomously** on the ESP32. Claude writes the scripts, 
 
 ![Hardware_Pinout_RS232C_Wiring_Guide](assets/Hardware_Pinout_RS232C_Wiring_Guide2.png)
 
-![LUNA Observatory System v5.9.6](assets/LUNA%20Observatory%20System%20v5.9.6.png)
+![LUNA Observatory System v5.9.6](assets/LUNA%20Observatory%20System%202026_05_17.png)
 
 ---
 
