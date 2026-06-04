@@ -20,6 +20,17 @@ Ask questions directly inside NotebookLM and get answers from the official docum
 👉 https://www.facebook.com/groups/1230935959149731
 
 ---
+## 🚀 What's New in v8.9.7
+
+LUNA v8.9.7 is now officially released! This update introduces exciting wireless capabilities and major enhancements:
+
+* **BLE 5.0 Support:** Fully integrates Bluetooth Low Energy 5.0 for seamless wireless device connectivity.
+* **LUNA Node (Sub Network):** Introduces wireless sub-device support with no pairing limits—run autonomous Lua scripts remotely on child nodes!
+* **Optimized Stability:** Built on FreeRTOS dual-core architecture to ensure stable MCP and Lua execution.
+
+> ⚠️ **Important:** To ensure all features and APIs work correctly, please run the `get_lua_guide` tool immediately after connecting Claude to the LUNA MCP server.
+
+For full flash binaries and auto-setup tools, check out the latest [GitHub Releases](https://github.com/OnStepNinja/LUNA/releases).
 
 ## What is LUNA?
 
