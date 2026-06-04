@@ -20,7 +20,7 @@ Ask questions directly inside NotebookLM and get answers from the official docum
 👉 https://www.facebook.com/groups/1230935959149731
 
 ---
-## 🚀 What's New in v8.9.7
+## 🚀 What's New in v8.9.7  2026-06-04
 
 LUNA v8.9.7 is now officially released! This update introduces exciting wireless capabilities and major enhancements:
 
