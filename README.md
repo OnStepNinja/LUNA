@@ -1,4 +1,4 @@
-# LUNA — AI-Driven Telescope & Observatory Controller
+# An open Physical AI platform based on ESP32 & Lua that connects LLMs to telescopes, mounts, and legacy instruments for fully autonomous observation.
 
 **MCP Server + Lua Scripting Engine on ESP32**
 
