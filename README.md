@@ -10,7 +10,8 @@ An open Physical AI platform based on ESP32 & Lua that connects LLMs to telescop
 ![Platform](https://img.shields.io/badge/platform-ESP32-orange)
 
 ---
-
+> 🆕 **LUNA AiConnect** — a tool for using your LUNA from claude.ai / Grok as a custom connector → see [Releases](https://github.com/OnStepNinja/LUNA/releases/tag/aiconnect-v0.9.0).
+> 
 ## LUNA Docs (NotebookLM)
 
 📚 LUNA Docs — Start here for setup guides, technical references, and FAQ.
