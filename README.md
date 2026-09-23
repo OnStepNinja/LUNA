@@ -11,7 +11,7 @@ An open Physical AI platform based on ESP32 & Lua that connects LLMs to telescop
 
 ---
 
-🆕 **AiNinaBridge2 (2026-09-23)** — Early prototype connecting AI assistants (Claude, Grok, etc.) to **N.I.N.A.** via Model Context Protocol (MCP).
+🆕 **LUNA AiNinaBridge2 (2026-09-23)** — Early prototype connecting AI assistants (Claude, Grok, etc.) to **N.I.N.A.** via Model Context Protocol (MCP).
 - **Live Context:** Provides AI with a live star chart & telescope pointing coordinates.
 - **Smart Control:** Executes GOTO, sync, and meridian flips via N.I.N.A.'s Advanced API.
 - **Automated Plans:** Triggers target sequences with plate solving, centering, autofocus, and guiding.
