@@ -10,7 +10,16 @@ An open Physical AI platform based on ESP32 & Lua that connects LLMs to telescop
 ![Platform](https://img.shields.io/badge/platform-ESP32-orange)
 
 ---
+
+🆕 **AiNinaBridge2 (2026-09-23)** — Early prototype connecting AI assistants (Claude, Grok, etc.) to **N.I.N.A.** via Model Context Protocol (MCP).
+- **Live Context:** Provides AI with a live star chart & telescope pointing coordinates.
+- **Smart Control:** Executes GOTO, sync, and meridian flips via N.I.N.A.'s Advanced API.
+- **Automated Plans:** Triggers target sequences with plate solving, centering, autofocus, and guiding.
+- **Looking for testers:** Designed with **OnStep + SmartWebServer** in mind → see [AiNinaBridge2 v0.8.0 Release](https://github.com/OnStepNinja/AiNinaBridge2/releases/tag/v0.8.0).
+
+
 > 🆕 **LUNA AiConnect** (2026-09-21)— a tool for using your LUNA from claude.ai / Grok as a custom connector → see [Releases](https://github.com/OnStepNinja/LUNA/releases/tag/aiconnect-v0.9.0).
+>
 > 
 ## LUNA Docs (NotebookLM)
 
