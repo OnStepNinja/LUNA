@@ -12,25 +12,20 @@ An open Physical AI platform based on ESP32 & Lua that connects LLMs to telescop
 ---
 
 🆕 NEW — LUNA AiBridge Host v0.9.0 (2026-10-07)
-Build your own telescope-control apps by chatting with an AI — free Windows tool (early prototype)
+Build your own telescope apps by chatting with an AI — free Windows tool (early prototype)
 
-AiBridge Host is the PC counterpart of the AiBridge ESP32 firmware. It runs small single-file web apps on your PC and gives all of them one common way to talk to your telescope mount. Optionally, an AI assistant (Claude or Grok) can write, test and fix those apps for you.
+AiBridge Host runs small web apps on your PC and gives them one common way to talk to your telescope mount (LX200 / OnStep, ASCOM Alpaca, INDI, N.I.N.A., or a built-in simulator). Optionally, an AI assistant (Claude or Grok) can write, test and fix those apps for you.
 
-You ──→ Claude / Grok ──→ AiBridge Host (PC) ──→ your apps (star chart, control panel, ...)
-                                  │
-                                  └──→ Mount: LX200 / OnStep (serial, TCP) · ASCOM Alpaca · INDI · N.I.N.A. · built-in simulator
-Run apps, any mount. The same app works with every supported mount. A star chart (English / Japanese) and two small sample apps are included.
-No hardware needed to try it. There is a built-in simulated mount.
-Let an AI build the apps. The AI writes the app, test-runs it in a hidden browser on the simulated mount, looks at the screenshots, and fixes what it finds.
-Watch it work, live. A "Watch the AI work" page shows what the AI reads, writes and test-runs.
-Safety first. Every GOTO, sync and settings change needs your approval, on a screen the AI cannot click.
-Host screen in English, 日本語 and 简体中文.
+Same app works with any supported mount. A star chart and sample apps are included.
+No hardware needed to try it: there is a simulated mount.
+You can watch what the AI is doing, live, on your PC.
+Every GOTO, sync and settings change needs your approval, every time.
 
-Try it in three steps: download the zip → unzip → run AiBridgeHost.exe.
+Try it: download the zip → unzip → run AiBridgeHost.exe.
 
-⚠️ Early prototype (v0.9.0). Verified only on the author's setup. Apps made by the AI run outside the Host's approval system and can move your real mount. Test on the simulated mount first, and stay next to the telescope with STOP within reach.
+⚠️ Early prototype. Verified only on the author's setup. AI-made apps can move your real mount. Test on the simulated mount first, and stay next to the telescope with STOP within reach.
 
-👉 Download & details · Feedback is very welcome.
+Download: https://github.com/OnStepNinja/AiBridgeHost/releases/tag/v0.9.0
 
 
 🆕 **LUNA AiNinaBridge2 (2026-09-23)** — Early prototype connecting AI assistants (Claude, Grok, etc.) to **N.I.N.A.** via Model Context Protocol (MCP).
