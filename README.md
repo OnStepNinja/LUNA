@@ -14,8 +14,6 @@ An open Physical AI platform based on ESP32 & Lua that connects LLMs to telescop
 🆕 NEW — LUNA AiBridge Host v0.9.0 (2026-10-07)
 Build your own telescope-control apps by chatting with an AI — free Windows tool (early prototype)
 
-(ダウンロードなどのバッジ 4 つが並びます。)
-
 AiBridge Host is the PC counterpart of the AiBridge ESP32 firmware. It runs small single-file web apps on your PC and gives all of them one common way to talk to your telescope mount. Optionally, an AI assistant (Claude or Grok) can write, test and fix those apps for you.
 
 You ──→ Claude / Grok ──→ AiBridge Host (PC) ──→ your apps (star chart, control panel, ...)
