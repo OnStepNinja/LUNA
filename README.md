@@ -11,6 +11,35 @@ An open Physical AI platform based on ESP32 & Lua that connects LLMs to telescop
 
 ---
 
+## 🆕 NEW — LUNA AiBridge Host v0.9.0 (2026-10-07)
+
+### One app, two homes: the same apps run on AiBridge (ESP32) and on your PC with AiBridge Host
+
+**AiBridge Host** is the PC version of [AiBridge](https://github.com/OnStepNinja/AiBridge). For the basic features (**LX200** and **Alpaca**) the two are compatible, so **the same web apps run on either one**. The Host goes further and also supports **INDI** and **N.I.N.A.**, for a wider range of equipment and features.
+
+| | AiBridge (ESP32) | AiBridge Host (PC) |
+|---|---|---|
+| LX200 / OnStep | ✅ | ✅ |
+| ASCOM Alpaca | ✅ | ✅ |
+| INDI | – | ✅ |
+| N.I.N.A. | – | ✅ |
+| Same apps | ✅ | ✅ |
+
+Optionally, an AI assistant (**Claude** or **Grok**) can write, test and fix apps for you.
+
+- No hardware needed to try the Host: there is a simulated mount. A star chart and sample apps are included.
+- You can watch what the AI is doing, live, on your PC.
+- Every GOTO, sync and settings change needs your approval, every time.
+
+**Try it:** download the zip → unzip → run `AiBridgeHost.exe`.
+
+> ⚠️ **Early prototype.** Verified only on the author's setup. AI-made apps can move your real mount. Test on the simulated mount first, and stay next to the telescope with STOP within reach.
+
+**Download:** https://github.com/OnStepNinja/AiBridgeHost/releases/tag/v0.9.0
+**Feedback welcome:** https://github.com/OnStepNinja/AiBridgeHost/issues
+
+---
+
 🆕 **LUNA AiNinaBridge2 (2026-09-23)** — Early prototype connecting AI assistants (Claude, Grok, etc.) to **N.I.N.A.** via Model Context Protocol (MCP).
 - **Live Context:** Provides AI with a live star chart & telescope pointing coordinates.
 - **Smart Control:** Executes GOTO, sync, and meridian flips via N.I.N.A.'s Advanced API.
