@@ -11,6 +11,18 @@ An open Physical AI platform based on ESP32 & Lua that connects LLMs to telescop
 
 ---
 
+## 🆕 NEW — LUNA Base v0.8.4 and LUNA Store (2026-11-08)
+
+**LUNA Base** is a small store that lives on an ESP32 board. Write it once over USB; after that, choose and install firmware and apps over Wi-Fi from **LUNA Store**.
+
+- Download: [LUNA Base v0.8.4 (English)](https://github.com/OnStepNinja/OnStepNinja-NS4000/releases/tag/LUNA_Base_v0.8.4) · [Japanese edition](https://github.com/OnStepNinja/OnStepNinja-NS4000/releases/tag/LUNA_Base_v0.8.4_ja) — one file, one `esptool` command
+- In LUNA Store now: **OnStepNinja NS-4000 1.2.8** (German equatorial, fork and alt-azimuth), the **Wireless BLE Handbox** ver2, the star chart and small apps
+- LUNA Base has its own partition. If a download fails, the board starts LUNA Base again, so you can try again without USB
+- **v0.8.4 fixes** losing access to the board's own Wi-Fi after entering a wrong home Wi-Fi setting. If you use an older LUNA Base, please write v0.8.4
+- Status: development version (pre-release). Freeware
+
+---
+
 ## 🆕 NEW — LUNA AiBridge Host v0.9.0 (2026-10-07)
 
 ### One app, two homes: the same apps run on AiBridge (ESP32) and on your PC with AiBridge Host
